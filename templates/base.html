@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}HiddenHire{% endblock %}</title>
+    <script>
+      (() => {
+        const key = "hiddenhire.theme";
+        const saved = localStorage.getItem(key);
+        const theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    {% for sheet in [
+      'theme.css','base.css','layout.css','nav.css','buttons.css','forms.css','badges.css',
+      'cards.css','tables.css','filters.css','dashboard.css','upload.css','job_detail.css',
+      'analytics.css','settings.css','utilities.css'
+    ] %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/' ~ sheet) }}">
+    {% endfor %}
+  </head>
+  <body>
+    {% include "partials/nav.html" %}
+    <div class="toast-stack" data-toast-stack>
+      {% with flashes = get_flashed_messages(with_categories=true) %}
+        {% for category, message in flashes %}
+          <div class="toast toast-{{ category }}" data-toast>{{ message }}</div>
+        {% endfor %}
+      {% endwith %}
+    </div>
+    <main class="page-shell">
+      {% block content %}{% endblock %}
+    </main>
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>

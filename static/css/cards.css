@@ -1,0 +1,42 @@
+.summary-card,
+.analytics-card,
+.job-card,
+.mini-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.summary-card,
+.analytics-card {
+  padding: 1.15rem;
+}
+
+.summary-label {
+  display: block;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.summary-value {
+  font-size: 1.7rem;
+}
+
+.job-card {
+  padding: var(--space-4);
+}
+
+.job-card.is-muted {
+  opacity: 0.78;
+}
+
+.job-card.is-priority {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent), var(--shadow);
+}
+
+.mini-card {
+  display: block;
+  padding: 0.95rem 1rem;
+}

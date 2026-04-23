@@ -1,0 +1,4 @@
+<div class="css-bar">
+  <div class="css-bar-label"><span>{{ item["label"] }}</span><strong>{{ item["count"] }}</strong></div>
+  <div class="css-bar-track"><span class="css-bar-fill" style="width: {{ (item['count'] / bar_max * 100) if bar_max else 0 }}%"></span></div>
+</div>

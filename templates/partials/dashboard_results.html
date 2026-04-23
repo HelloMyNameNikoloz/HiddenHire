@@ -1,0 +1,28 @@
+<section class="results-header">
+  <div>
+    <h2>{{ result_count }} jobs</h2>
+    {% if active_filter_count %}
+      {% include "partials/filter_chips.html" %}
+    {% endif %}
+  </div>
+  <div class="results-actions">
+    <a class="btn btn-secondary" href="{{ url_for('export.export_jobs', **request.args.to_dict()) }}" data-export-link>Export current view</a>
+  </div>
+</section>
+{% if jobs %}
+  <div class="job-list">
+    {% for job in jobs %}
+      {% include "partials/job_card.html" %}
+    {% endfor %}
+  </div>
+{% else %}
+  {% if summary.total_imported_jobs %}
+    {% with title="No matching jobs", message="Try fewer filters." %}
+      {% include "partials/empty_state.html" %}
+    {% endwith %}
+  {% else %}
+    {% with title="No jobs yet", message="Upload or paste a CSV." %}
+      {% include "partials/empty_state.html" %}
+    {% endwith %}
+  {% endif %}
+{% endif %}

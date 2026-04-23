@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics | HiddenHire{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Insights</p>
+      <h1>Opportunity analytics</h1>
+      <p class="lede">Review what is working, where the strongest hidden opportunities sit, and what needs action next.</p>
+    </div>
+  </section>
+  <section class="analytics-grid">
+    {% with title="Average hidden score", value=analytics.average_hidden_score, tone="accent" %}
+      {% include "partials/analytics_card.html" %}
+    {% endwith %}
+    {% with title="Jobs with salary data", value=analytics.salary_info_count, tone="success" %}
+      {% include "partials/analytics_card.html" %}
+    {% endwith %}
+    {% with title="Company profile red flags", value=analytics.profile_flag_count, tone="warning" %}
+      {% include "partials/analytics_card.html" %}
+    {% endwith %}
+    {% with title="Rejected duplicates", value=analytics.rejected_duplicate_count, tone="muted" %}
+      {% include "partials/analytics_card.html" %}
+    {% endwith %}
+  </section>
+  <section class="analytics-split">
+    <article class="panel">
+      <h2>Jobs by status</h2>
+      {% for item in analytics.status_counts %}{% with bar_max=analytics.status_max %}{% include "partials/css_bar.html" %}{% endwith %}{% endfor %}
+      <h2>Jobs by remote type</h2>
+      {% for item in analytics.remote_counts %}{% with bar_max=analytics.remote_max %}{% include "partials/css_bar.html" %}{% endwith %}{% endfor %}
+      <h2>Jobs by employment type</h2>
+      {% for item in analytics.employment_counts %}{% with bar_max=analytics.employment_max %}{% include "partials/css_bar.html" %}{% endwith %}{% endfor %}
+    </article>
+    <article class="panel">
+      <h2>Locations</h2>
+      {% for item in analytics.location_counts %}{% with bar_max=analytics.location_max %}{% include "partials/css_bar.html" %}{% endwith %}{% endfor %}
+      <h2>Deadline warnings</h2>
+      {% if analytics.deadline_warnings %}
+        <div class="list-stack">
+          {% for job in analytics.deadline_warnings %}
+            <a class="mini-card" href="{{ url_for('jobs.detail', job_id=job['id']) }}">{{ job["employer_name"] }} · {{ format_date(job["application_deadline"]) }}</a>
+          {% endfor %}
+        </div>
+      {% else %}
+        {% with title="No urgent deadlines", message="Nothing expires in the next 7 days." %}
+          {% include "partials/empty_state.html" %}
+        {% endwith %}
+      {% endif %}
+      <h2>Follow-up reminders</h2>
+      {% if analytics.follow_up_reminders %}
+        <div class="list-stack">
+          {% for job in analytics.follow_up_reminders %}
+            <a class="mini-card" href="{{ url_for('jobs.detail', job_id=job['id']) }}">{{ job["employer_name"] }} · {{ format_date(job["follow_up_date"]) }}</a>
+          {% endfor %}
+        </div>
+      {% else %}
+        {% with title="No follow-ups due", message="Applied roles are up to date." %}
+          {% include "partials/empty_state.html" %}
+        {% endwith %}
+      {% endif %}
+    </article>
+  </section>
+  <section class="panel">
+    <h2>Best opportunities</h2>
+    {% if analytics.best_opportunities %}
+      <div class="job-list compact-grid">
+        {% for job in analytics.best_opportunities %}
+          {% include "partials/job_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      {% with title="No best-fit roles yet", message="Import more remote or hybrid part-time opportunities to populate this list." %}
+        {% include "partials/empty_state.html" %}
+      {% endwith %}
+    {% endif %}
+  </section>
+{% endblock %}

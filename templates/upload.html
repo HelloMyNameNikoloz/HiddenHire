@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Upload CSV | HiddenHire{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Import jobs</p>
+      <h1>Upload employer-site CSV data</h1>
+      <p class="lede">Import by file or paste raw CSV directly. HiddenHire validates the schema, skips duplicates, and keeps rejected platform duplicates for audit.</p>
+    </div>
+  </section>
+  <section class="upload-grid">
+    <article class="panel">
+      <form method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+        <div class="import-method-grid">
+          <section class="import-method">
+            <div class="import-method-head">
+              <h2>Upload a file</h2>
+              <p class="helper-text">Best when you already exported a CSV from your research workflow.</p>
+            </div>
+            <label class="dropzone" data-dropzone>
+              <input type="file" name="csv_file" accept=".csv" data-file-input>
+              <span class="dropzone-title">Drop CSV here or choose a file</span>
+              <span class="dropzone-copy">UTF-8 CSV only, max 5 MB.</span>
+              <span class="dropzone-file" data-file-name>No file selected</span>
+            </label>
+          </section>
+          <section class="import-method">
+            <div class="import-method-head">
+              <h2>Paste CSV</h2>
+              <p class="helper-text">Useful for quick checks, copied spreadsheet exports, or smaller batches.</p>
+            </div>
+            <label for="csv_text">CSV text</label>
+            <textarea
+              id="csv_text"
+              name="csv_text"
+              rows="12"
+              placeholder="Paste the full CSV header and rows here"
+              data-paste-input
+            >{{ pasted_csv }}</textarea>
+          </section>
+        </div>
+        <p class="helper-text">Use either a file or pasted CSV. If both are provided, the uploaded file is imported first.</p>
+        <button type="submit" class="btn btn-primary">Validate and import</button>
+      </form>
+      {% if import_summary or validation %}
+        {% include "partials/import_summary.html" %}
+      {% endif %}
+    </article>
+    <article class="panel schema-panel">
+      <h2>Expected CSV schema</h2>
+      <p class="helper-text">Columns may be in any order, but every documented column must be present. Empty `id` values are fine.</p>
+      <div class="schema-list">
+        {% for column in csv_columns %}
+          <span class="schema-chip">{{ column }}</span>
+        {% endfor %}
+      </div>
+    </article>
+  </section>
+{% endblock %}

@@ -1,0 +1,33 @@
+<section class="panel import-panel">
+  <h2>Import result</h2>
+  {% if import_summary %}
+    <div class="summary-grid compact-summary">
+      <article class="summary-card"><span class="summary-label">Inserted</span><strong class="summary-value">{{ import_summary.inserted_count }}</strong></article>
+      <article class="summary-card"><span class="summary-label">Duplicate skipped</span><strong class="summary-value">{{ import_summary.duplicate_skipped_count }}</strong></article>
+      <article class="summary-card"><span class="summary-label">Rejected duplicates</span><strong class="summary-value">{{ import_summary.rejected_platform_duplicate_count }}</strong></article>
+      <article class="summary-card"><span class="summary-label">Warnings</span><strong class="summary-value">{{ import_summary.warning_count }}</strong></article>
+      <article class="summary-card"><span class="summary-label">Missing required</span><strong class="summary-value">{{ import_summary.missing_required_count }}</strong></article>
+      <article class="summary-card"><span class="summary-label">Errors</span><strong class="summary-value">{{ import_summary.error_count }}</strong></article>
+    </div>
+  {% endif %}
+  {% if validation.warnings %}
+    <div class="message-list">
+      {% for warning in validation.warnings %}<p class="message message-warning">{{ warning }}</p>{% endfor %}
+    </div>
+  {% endif %}
+  {% if validation.row_warnings %}
+    <div class="message-list">
+      {% for item in validation.row_warnings[:10] %}
+        <p class="message message-warning">Row {{ item.row_number }}: {{ item.warnings|join(', ') }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if validation.errors or validation.row_errors %}
+    <div class="message-list">
+      {% for error in validation.errors %}<p class="message message-danger">{{ error }}</p>{% endfor %}
+      {% for item in validation.row_errors[:10] %}
+        <p class="message message-danger">Row {{ item.row_number }}: {{ item.errors|join(', ') }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>

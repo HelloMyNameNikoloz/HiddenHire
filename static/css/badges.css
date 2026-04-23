@@ -1,0 +1,50 @@
+.badge,
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 30px;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.badge-row,
+.inline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.badge-accent,
+.status-offer {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  color: var(--accent);
+}
+
+.badge-success,
+.status-applied,
+.status-interview {
+  background: var(--hidden-bg);
+  color: var(--success);
+}
+
+.badge-warning,
+.status-interested {
+  background: color-mix(in srgb, var(--warning) 12%, var(--surface));
+  color: var(--warning);
+}
+
+.badge-muted,
+.status-ignored,
+.status-rejected {
+  background: var(--elevated);
+  color: var(--text-muted);
+}
+
+.status-new {
+  color: var(--text);
+}

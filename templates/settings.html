@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Settings | HiddenHire{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Local setup</p>
+      <h1>Settings</h1>
+      <p class="lede">Control local defaults, inspect the SQLite path, and export or reset your data.</p>
+    </div>
+  </section>
+  <section class="settings-grid">
+    <article class="panel">
+      <h2>Dashboard preference</h2>
+      <form method="post" action="{{ url_for('settings.preferences') }}">
+        <label class="checkbox-row">
+          <input type="checkbox" name="hide_rejected_duplicates_default" {% if hide_default %}checked{% endif %}>
+          <span>Hide rejected platform duplicates by default</span>
+        </label>
+        <button class="btn btn-primary" type="submit">Save preference</button>
+      </form>
+    </article>
+    <article class="panel">
+      <h2>Data tools</h2>
+      <p class="helper-text">Database path: <code>{{ db_path }}</code></p>
+      <div class="quick-actions">
+        <a class="btn btn-secondary" href="{{ url_for('export.export_jobs', show_rejected=1) }}">Export all jobs</a>
+        <form method="post" action="{{ url_for('settings.delete_all') }}" onsubmit="return confirm('Delete all imported jobs?');">
+          <button class="btn btn-danger" type="submit">Delete all jobs</button>
+        </form>
+      </div>
+    </article>
+    <article class="panel settings-wide">
+      <h2>Expected CSV schema</h2>
+      <div class="schema-list">
+        {% for column in csv_columns %}
+          <span class="schema-chip">{{ column }}</span>
+        {% endfor %}
+      </div>
+    </article>
+  </section>
+{% endblock %}

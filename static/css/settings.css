@@ -1,0 +1,8 @@
+.settings-grid {
+  margin-top: var(--space-3);
+}
+
+.settings-grid form {
+  display: grid;
+  gap: var(--space-3);
+}

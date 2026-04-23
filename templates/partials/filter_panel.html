@@ -1,0 +1,51 @@
+<aside class="filter-panel panel">
+  <form method="get" action="{{ url_for('dashboard.index') }}" data-filter-form>
+    <div class="filter-group">
+      <label>Search</label>
+      <input type="search" name="q" value="{{ filters.q }}" placeholder="Employer, title, stack, notes">
+    </div>
+    <div class="quick-filter-row">
+      <label class="checkbox-row compact-check"><input type="checkbox" name="only_remote_hybrid" value="1" {% if filters.only_remote_hybrid %}checked{% endif %}><span>Remote or hybrid</span></label>
+      <label class="checkbox-row compact-check"><input type="checkbox" name="only_part_time_student" value="1" {% if filters.only_part_time_student %}checked{% endif %}><span>Part-time or student</span></label>
+      <label class="checkbox-row compact-check"><input type="checkbox" name="only_not_applied" value="1" {% if filters.only_not_applied %}checked{% endif %}><span>Not applied</span></label>
+      <label class="checkbox-row compact-check"><input type="checkbox" name="show_rejected" value="1" {% if filters.show_rejected %}checked{% endif %}><span>Show rejected</span></label>
+    </div>
+    <div class="filter-group two-up">
+      <div><label>Sort by</label><select name="sort">{% for key in sort_options.keys() %}<option value="{{ key }}" {% if filters.sort == key %}selected{% endif %}>{{ key.replace('_', ' ') }}</option>{% endfor %}</select></div>
+      <div><label>Minimum hidden score</label><input type="number" min="0" max="100" name="min_hidden_score" value="{{ filters.min_hidden_score }}" placeholder="60"></div>
+    </div>
+    <details class="advanced-filters" {% if active_filter_count > 2 or filters.employer_name or filters.job_title or filters.location or filters.tech_stack %}open{% endif %}>
+      <summary>Advanced filters</summary>
+      <div class="filter-group two-up">
+        <div><label>Employer</label><input type="text" name="employer_name" value="{{ filters.employer_name }}"></div>
+        <div><label>Job title</label><input type="text" name="job_title" value="{{ filters.job_title }}"></div>
+      </div>
+      <div class="filter-group two-up">
+        <div><label>Location</label><input type="text" name="location" value="{{ filters.location }}"></div>
+        <div><label>Hours per week</label><input type="text" name="hours_per_week" value="{{ filters.hours_per_week }}"></div>
+      </div>
+      <div class="filter-group two-up">
+        <div><label>Remote type</label><select name="remote_type"><option value="">All</option>{% for item in remote_types %}<option value="{{ item }}" {% if filters.remote_type == item %}selected{% endif %}>{{ item }}</option>{% endfor %}</select></div>
+        <div><label>Employment type</label><select name="employment_type"><option value="">All</option>{% for item in employment_types %}<option value="{{ item }}" {% if filters.employment_type == item %}selected{% endif %}>{{ item }}</option>{% endfor %}</select></div>
+      </div>
+      <div class="filter-group two-up">
+        <div><label>Status</label><select name="status"><option value="">All</option>{% for item in status_options %}<option value="{{ item }}" {% if filters.status == item %}selected{% endif %}>{{ status_label(item) }}</option>{% endfor %}</select></div>
+        <div><label>Salary available</label><select name="salary_available"><option value="">All</option><option value="yes" {% if filters.salary_available == 'yes' %}selected{% endif %}>Yes</option></select></div>
+      </div>
+      <div class="filter-group">
+        <label>Tech stack contains</label>
+        <input type="text" name="tech_stack" value="{{ filters.tech_stack }}">
+      </div>
+      <div class="checkbox-list">
+        <label class="checkbox-row"><input type="checkbox" name="has_red_flags" value="yes" {% if filters.has_red_flags == 'yes' %}checked{% endif %}><span>Has red flags</span></label>
+        <label class="checkbox-row"><input type="checkbox" name="deadline_exists" value="yes" {% if filters.deadline_exists == 'yes' %}checked{% endif %}><span>Has deadline</span></label>
+        <label class="checkbox-row"><input type="checkbox" name="posted_exists" value="yes" {% if filters.posted_exists == 'yes' %}checked{% endif %}><span>Has posted date</span></label>
+        <label class="checkbox-row"><input type="checkbox" name="only_interested" value="1" {% if filters.only_interested %}checked{% endif %}><span>Only interested</span></label>
+      </div>
+    </details>
+    <div class="filter-actions">
+      <button class="btn btn-primary" type="submit">Apply</button>
+      <a class="btn btn-secondary" href="{{ url_for('dashboard.index') }}">Reset</a>
+    </div>
+  </form>
+</aside>

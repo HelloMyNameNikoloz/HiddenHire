@@ -1,0 +1,22 @@
+{% set smart_badge = recommendation_badge(job) %}
+<article class="job-card {% if job['is_rejected_platform_duplicate'] %}is-muted{% endif %} {% if job['hidden_score'] >= 80 %}is-priority{% endif %}">
+  <div class="job-card-head">
+    <div>
+      <p class="job-employer">{{ job["employer_name"] }}</p>
+      <h3><a href="{{ url_for('jobs.detail', job_id=job['id']) }}">{{ job["job_title"] }}</a></h3>
+    </div>
+    {% set status = job["status"] %}
+    {% include "partials/status_badge.html" %}
+  </div>
+  <p class="job-meta">{{ job["location"] or "Unknown location" }} · {{ job["remote_type"] }} · {{ job["employment_type"] }}</p>
+  <p class="job-salary">{{ format_salary(job) }}</p>
+  <div class="badge-row">
+    {% include "partials/job_badges.html" %}
+    {% if smart_badge %}<span class="badge badge-accent">{{ smart_badge }}</span>{% endif %}
+  </div>
+  <p class="job-copy">{{ job["why_relevant"] or job["description_short"] or "No summary available yet." }}</p>
+  <div class="job-actions">
+    <a class="btn btn-secondary" href="{{ job['original_job_url'] }}" target="_blank" rel="noreferrer">Original link</a>
+    <a class="btn btn-primary" href="{{ url_for('jobs.detail', job_id=job['id']) }}">Details</a>
+  </div>
+</article>

@@ -1,0 +1,16 @@
+<section class="summary-grid">
+  {% set cards = [
+    ('Total imported jobs', summary.total_imported_jobs),
+    ('Hidden jobs', summary.hidden_jobs),
+    ('Red flag jobs', summary.red_flag_jobs),
+    ('Applied jobs', summary.applied_jobs),
+    ('Interview jobs', summary.interview_jobs),
+    ('Average hidden score', summary.average_hidden_score)
+  ] %}
+  {% for title, value in cards %}
+    <article class="summary-card">
+      <span class="summary-label">{{ title }}</span>
+      <strong class="summary-value">{{ value }}</strong>
+    </article>
+  {% endfor %}
+</section>

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}{{ job["job_title"] }} | HiddenHire{% endblock %}
+
+{% block content %}
+  <section class="page-header detail-header">
+    <div>
+      <p class="eyebrow">{{ job["employer_name"] }}</p>
+      <h1>{{ job["job_title"] }}</h1>
+      <div class="inline-meta">
+        {% include "partials/status_badge.html" with context %}
+        {% if smart_badge %}<span class="badge badge-accent">{{ smart_badge }}</span>{% endif %}
+        {% if job["is_rejected_platform_duplicate"] %}<span class="badge badge-muted">Rejected duplicate</span>{% endif %}
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="btn btn-primary" href="{{ job['original_job_url'] }}" target="_blank" rel="noreferrer">Open original job</a>
+      {% if job["career_page_url"] %}
+        <a class="btn btn-secondary" href="{{ job['career_page_url'] }}" target="_blank" rel="noreferrer">Open career page</a>
+      {% endif %}
+    </div>
+  </section>
+  <section class="detail-grid">
+    <article class="panel detail-main">
+      <div class="detail-section">
+        <h2>Overview</h2>
+        <dl class="detail-list">
+          <div><dt>Location</dt><dd>{{ job["location"] or "Unknown" }}</dd></div>
+          <div><dt>Remote type</dt><dd>{{ job["remote_type"] or "Unknown" }}</dd></div>
+          <div><dt>Employment type</dt><dd>{{ job["employment_type"] or "Unknown" }}</dd></div>
+          <div><dt>Hours per week</dt><dd>{{ job["hours_per_week"] or "Not set" }}</dd></div>
+          <div><dt>Salary</dt><dd>{{ format_salary(job) }}</dd></div>
+          <div><dt>Posted date</dt><dd>{{ format_date(job["posted_date"]) }}</dd></div>
+          <div><dt>Deadline</dt><dd>{{ format_date(job["application_deadline"]) }}</dd></div>
+          <div><dt>Hidden score</dt><dd>{{ job["hidden_score"] }}/100</dd></div>
+          <div><dt>Application method</dt><dd>{{ job["application_method"] or "Not set" }}</dd></div>
+          <div><dt>Contact email</dt><dd><span data-contact-email>{{ job["contact_email"] or "Not set" }}</span></dd></div>
+        </dl>
+      </div>
+      <div class="detail-section">
+        <h2>Why this role matters</h2>
+        <p>{{ job["why_relevant"] or "No relevance notes yet." }}</p>
+        <h3>Tech stack</h3>
+        <p>{{ job["tech_stack"] or "Not specified." }}</p>
+        <h3>Requirements</h3>
+        <p>{{ job["requirements"] or "Not provided." }}</p>
+        <h3>Short description</h3>
+        <p>{{ job["description_short"] or "Not provided." }}</p>
+        <h3>Imported recommendation</h3>
+        <p>{{ job["recommendation"] or "No imported recommendation." }}</p>
+      </div>
+      <div class="detail-section">
+        <h2>Crosschecks</h2>
+        <ul class="detail-flags">
+          <li>LinkedIn profile found: {{ "Yes" if job["crosscheck_linkedin_profile_found"] else "No" }}</li>
+          <li>Indeed profile found: {{ "Yes" if job["crosscheck_indeed_profile_found"] else "No" }}</li>
+          <li>StepStone profile found: {{ "Yes" if job["crosscheck_stepstone_profile_found"] else "No" }}</li>
+          <li>Xing profile found: {{ "Yes" if job["crosscheck_xing_profile_found"] else "No" }}</li>
+          <li>Same offer on LinkedIn: {{ "Yes" if job["same_offer_found_on_linkedin"] else "No" }}</li>
+          <li>Same offer on Indeed: {{ "Yes" if job["same_offer_found_on_indeed"] else "No" }}</li>
+          <li>Same offer on StepStone: {{ "Yes" if job["same_offer_found_on_stepstone"] else "No" }}</li>
+          <li>Same offer on Xing: {{ "Yes" if job["same_offer_found_on_xing"] else "No" }}</li>
+        </ul>
+        <h3>Red flags</h3>
+        <p>{{ job["red_flags"] or "No explicit red flags recorded." }}</p>
+      </div>
+    </article>
+    <aside class="detail-side">
+      <article class="panel">
+        <h2>Update status</h2>
+        <form method="post" action="{{ url_for('jobs.status', job_id=job['id']) }}" data-status-form>
+          <input type="date" name="applied_date" value="{{ job['applied_date'] or '' }}">
+          <input type="date" name="follow_up_date" value="{{ job['follow_up_date'] or '' }}">
+          <div class="status-button-grid">
+            {% for value in ["interested","applied","interview","offer","rejected","ignored"] %}
+              <button class="btn btn-secondary" type="submit" name="status" value="{{ value }}">{{ status_label(value) }}</button>
+            {% endfor %}
+          </div>
+        </form>
+        <div class="helper-row">
+          <span>Applied date: <strong data-applied-date>{{ format_date(job["applied_date"]) }}</strong></span>
+          <span>Follow-up: <strong data-follow-up-date>{{ format_date(job["follow_up_date"]) }}</strong></span>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>Private notes</h2>
+        <form method="post" action="{{ url_for('jobs.notes', job_id=job['id']) }}" data-notes-form>
+          <textarea name="notes" rows="8" placeholder="Add private follow-up notes, application ideas, or reminders.">{{ job["notes"] or "" }}</textarea>
+          <div class="helper-row">
+            <span class="save-indicator" data-save-indicator>Autosave ready</span>
+            <button type="submit" class="btn btn-secondary">Save notes</button>
+          </div>
+        </form>
+      </article>
+      <article class="panel">
+        <h2>Quick actions</h2>
+        <div class="quick-actions">
+          <button class="btn btn-secondary" type="button" data-copy-email>Copy contact email</button>
+          <button class="btn btn-secondary" type="button" data-copy-template data-template="{{ application_template|e }}">Copy application template</button>
+        </div>
+      </article>
+    </aside>
+  </section>
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="filter-chip-row">
+  {% if filters.q %}<span class="badge">Search: {{ filters.q }}</span>{% endif %}
+  {% if filters.remote_type %}<span class="badge">{{ filters.remote_type }}</span>{% endif %}
+  {% if filters.employment_type %}<span class="badge">{{ filters.employment_type }}</span>{% endif %}
+  {% if filters.status %}<span class="badge">{{ status_label(filters.status) }}</span>{% endif %}
+  {% if filters.only_remote_hybrid %}<span class="badge">Remote or hybrid</span>{% endif %}
+  {% if filters.only_part_time_student %}<span class="badge">Part-time or student</span>{% endif %}
+  {% if filters.only_not_applied %}<span class="badge">Not applied</span>{% endif %}
+  {% if filters.has_red_flags == 'yes' %}<span class="badge">Red flags</span>{% endif %}
+  {% if filters.min_hidden_score %}<span class="badge">Score {{ filters.min_hidden_score }}+</span>{% endif %}
+</div>

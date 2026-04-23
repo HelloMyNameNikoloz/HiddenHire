@@ -1,0 +1,10 @@
+{% if job["remote_type"] == "remote" %}<span class="badge">Remote</span>{% endif %}
+{% if job["remote_type"] == "hybrid" %}<span class="badge">Hybrid</span>{% endif %}
+{% if job["employment_type"] == "part_time" %}<span class="badge">Part-time</span>{% endif %}
+{% if job["employment_type"] == "working_student" %}<span class="badge">Working student</span>{% endif %}
+{% if job["source_type"] == "direct_employer_website" %}<span class="badge">Direct employer website</span>{% endif %}
+{% if job["crosscheck_linkedin_profile_found"] %}<span class="badge badge-warning">LinkedIn profile found</span>{% endif %}
+{% if job["crosscheck_indeed_profile_found"] %}<span class="badge badge-warning">Indeed profile found</span>{% endif %}
+{% if job["is_rejected_platform_duplicate"] %}<span class="badge badge-muted">Same offer found</span>{% endif %}
+{% if job["hidden_score"] >= 80 %}<span class="badge badge-success">High hidden score</span>{% endif %}
+{% if job["salary_min"] is not none or job["salary_max"] is not none %}<span class="badge">Salary available</span>{% endif %}

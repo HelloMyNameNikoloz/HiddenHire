@@ -1,0 +1,20 @@
+.detail-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+}
+
+.detail-list dt {
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.detail-list dd {
+  margin: 0;
+}
+
+.detail-flags {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--text-secondary);
+}

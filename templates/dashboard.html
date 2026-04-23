@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | HiddenHire{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div><h1>Dashboard</h1></div>
+  </section>
+  {% include "partials/summary_cards.html" %}
+  <section class="dashboard-layout">
+    {% include "partials/filter_panel.html" %}
+    <div class="dashboard-main" id="dashboard-results">
+      {% include "partials/dashboard_results.html" %}
+    </div>
+  </section>
+{% endblock %}
