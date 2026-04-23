@@ -1,5 +1,6 @@
 <aside class="filter-panel panel">
   <form method="get" action="{{ url_for('dashboard.index') }}" data-filter-form>
+    <input type="hidden" name="view" value="{{ filters.view }}">
     <div class="filter-group">
       <label>Search</label>
       <input type="search" name="q" value="{{ filters.q }}" placeholder="Employer, title, stack, notes">
@@ -7,7 +8,9 @@
     <div class="quick-filter-row">
       <label class="checkbox-row compact-check"><input type="checkbox" name="only_remote_hybrid" value="1" {% if filters.only_remote_hybrid %}checked{% endif %}><span>Remote or hybrid</span></label>
       <label class="checkbox-row compact-check"><input type="checkbox" name="only_part_time_student" value="1" {% if filters.only_part_time_student %}checked{% endif %}><span>Part-time or student</span></label>
-      <label class="checkbox-row compact-check"><input type="checkbox" name="only_not_applied" value="1" {% if filters.only_not_applied %}checked{% endif %}><span>Not applied</span></label>
+      {% if filters.view != 'applied' %}
+        <label class="checkbox-row compact-check"><input type="checkbox" name="only_not_applied" value="1" {% if filters.only_not_applied %}checked{% endif %}><span>Not applied</span></label>
+      {% endif %}
       <label class="checkbox-row compact-check"><input type="checkbox" name="show_rejected" value="1" {% if filters.show_rejected %}checked{% endif %}><span>Show rejected</span></label>
     </div>
     <div class="filter-group two-up">

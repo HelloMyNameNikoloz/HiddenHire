@@ -1,3 +1,26 @@
+.dashboard-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.dashboard-tab {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.dashboard-tab.is-active {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  color: var(--text);
+}
+
 .results-actions {
   display: flex;
   flex-wrap: wrap;
@@ -45,6 +68,7 @@
 }
 
 @media (max-width: 900px) {
+  .dashboard-tabs,
   .results-header {
     flex-direction: column;
     align-items: start;

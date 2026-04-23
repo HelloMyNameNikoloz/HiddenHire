@@ -3,6 +3,7 @@ from datetime import date, datetime
 from flask import Flask
 
 from config import Config
+from routes.about import bp as about_bp
 from database.db import ensure_database, init_app
 from routes.analytics import bp as analytics_bp
 from routes.dashboard import bp as dashboard_bp
@@ -27,6 +28,7 @@ def create_app():
 def register_routes(app):
     for blueprint in (
         dashboard_bp,
+        about_bp,
         upload_bp,
         jobs_bp,
         analytics_bp,

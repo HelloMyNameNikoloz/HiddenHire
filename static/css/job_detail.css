@@ -14,6 +14,40 @@
   border-top: 1px solid var(--border);
 }
 
+.status-panel {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent) 6%, var(--card)), var(--card));
+}
+
+.current-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 0.95rem 1rem;
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.status-panel-label {
+  display: block;
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+  font-size: 0.85rem;
+}
+
+.status-panel-value {
+  font-size: 1.1rem;
+}
+
+.status-date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
 .status-button-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -21,6 +55,56 @@
   margin-top: var(--space-2);
 }
 
+.status-action {
+  min-height: 52px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.status-action:hover {
+  transform: translateY(-1px);
+}
+
+.status-action.is-current {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+  box-shadow: var(--focus-ring);
+}
+
+.status-action.is-pending {
+  opacity: 0.7;
+}
+
+.status-action.status-applied,
+.status-action.status-interview {
+  background: color-mix(in srgb, var(--success) 12%, var(--surface));
+}
+
+.status-action.status-offer {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+.status-action.status-rejected,
+.status-action.status-ignored {
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
 .save-indicator {
   color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+  .status-date-grid,
+  .status-button-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .current-status-row {
+    align-items: start;
+    flex-direction: column;
+  }
 }

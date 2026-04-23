@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}About | HiddenHire{% endblock %}
+
+{% block content %}
+  <section class="page-header">
+    <div>
+      <h1>About tags</h1>
+      <p class="helper-text">A quick legend for every badge and status label used in HiddenHire.</p>
+    </div>
+  </section>
+
+  <section class="about-grid">
+    <article class="panel">
+      <h2>Job tags</h2>
+      <div class="tag-legend">
+        {% for item in job_tags %}
+          <div class="tag-legend-item">
+            <span class="{{ item.classes }}">{{ item.label }}</span>
+            <p>{{ item.meaning }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </article>
+
+    <article class="panel">
+      <h2>Smart tags</h2>
+      <div class="tag-legend">
+        {% for item in smart_tags %}
+          <div class="tag-legend-item">
+            <span class="{{ item.classes }}">{{ item.label }}</span>
+            <p>{{ item.meaning }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </article>
+  </section>
+
+  <section class="about-grid single-row">
+    <article class="panel">
+      <h2>Status tags</h2>
+      <div class="tag-legend">
+        {% for item in status_tags %}
+          <div class="tag-legend-item">
+            <span class="{{ item.classes }}">{{ item.label }}</span>
+            <p>{{ item.meaning }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </article>
+  </section>
+{% endblock %}

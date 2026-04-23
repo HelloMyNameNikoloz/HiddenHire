@@ -16,6 +16,7 @@
     {% for sheet in [
       'theme.css','base.css','layout.css','nav.css','buttons.css','forms.css','badges.css',
       'cards.css','tables.css','filters.css','dashboard.css','upload.css','job_detail.css',
+      'about.css',
       'analytics.css','settings.css','utilities.css'
     ] %}
       <link rel="stylesheet" href="{{ url_for('static', filename='css/' ~ sheet) }}">

@@ -1,0 +1,39 @@
+.about-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: var(--space-4);
+}
+
+.single-row {
+  grid-template-columns: 1fr;
+}
+
+.tag-legend {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.tag-legend-item {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tag-legend-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.tag-legend-item p {
+  margin: 0;
+  color: var(--text-secondary);
+  max-width: 52ch;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}

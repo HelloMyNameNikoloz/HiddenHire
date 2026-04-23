@@ -26,7 +26,11 @@ pip install -r requirements.txt
 flask --app app run --debug
 ```
 
-On first run, HiddenHire creates `instance/hiddenhire.sqlite` automatically.
+On first run, HiddenHire creates its SQLite database inside the project:
+
+`database/hiddenhire.sqlite`
+
+If an older `instance/hiddenhire.sqlite` or prior AppData copy exists, HiddenHire copies it into this project-local location automatically.
 
 ## Upload a CSV
 

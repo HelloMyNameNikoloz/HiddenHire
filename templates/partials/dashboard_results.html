@@ -1,6 +1,16 @@
 <section class="results-header">
   <div>
-    <h2>{{ result_count }} jobs</h2>
+    <h2>
+      {{ result_count }}
+      {% if filters.view == 'applied' %}
+        applied
+      {% elif filters.view == 'hidden' %}
+        hidden
+      {% else %}
+        open
+      {% endif %}
+      jobs
+    </h2>
     {% if active_filter_count %}
       {% include "partials/filter_chips.html" %}
     {% endif %}

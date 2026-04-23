@@ -66,14 +66,37 @@
       </div>
     </article>
     <aside class="detail-side">
-      <article class="panel">
+      <article class="panel status-panel" data-status-panel>
         <h2>Update status</h2>
+        <div class="current-status-row">
+          <div>
+            <span class="status-panel-label">Current status</span>
+            <strong class="status-panel-value" data-current-status-copy>{{ status_label(job["status"]) }}</strong>
+          </div>
+          <span class="status-badge status-{{ job['status'] }}" data-status-badge>{{ status_label(job["status"]) }}</span>
+        </div>
         <form method="post" action="{{ url_for('jobs.status', job_id=job['id']) }}" data-status-form>
-          <input type="date" name="applied_date" value="{{ job['applied_date'] or '' }}">
-          <input type="date" name="follow_up_date" value="{{ job['follow_up_date'] or '' }}">
+          <div class="status-date-grid">
+            <div>
+              <label for="applied_date">Applied date</label>
+              <input id="applied_date" type="date" name="applied_date" value="{{ job['applied_date'] or '' }}">
+            </div>
+            <div>
+              <label for="follow_up_date">Follow-up date</label>
+              <input id="follow_up_date" type="date" name="follow_up_date" value="{{ job['follow_up_date'] or '' }}">
+            </div>
+          </div>
           <div class="status-button-grid">
             {% for value in ["interested","applied","interview","offer","rejected","ignored"] %}
-              <button class="btn btn-secondary" type="submit" name="status" value="{{ value }}">{{ status_label(value) }}</button>
+              <button
+                class="status-action status-{{ value }} {% if job['status'] == value %}is-current{% endif %}"
+                type="submit"
+                name="status"
+                value="{{ value }}"
+                data-status-button="{{ value }}"
+              >
+                {{ status_label(value) }}
+              </button>
             {% endfor %}
           </div>
         </form>

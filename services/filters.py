@@ -16,6 +16,7 @@ SEARCH_FIELDS = [
 def normalize_filters(args, hide_rejected_default):
     show_rejected = is_truthy(args.get("show_rejected")) if "show_rejected" in args else not hide_rejected_default
     return {
+        "view": args.get("view") or "open",
         "q": (args.get("q") or "").strip(),
         "employer_name": (args.get("employer_name") or "").strip(),
         "job_title": (args.get("job_title") or "").strip(),
@@ -84,7 +85,13 @@ def count_visible_jobs(filters):
 def build_where(filters):
     clauses = []
     params = []
-    if not filters["show_rejected"]:
+    if filters["view"] == "applied":
+        clauses.append("status = 'applied'")
+    elif filters["view"] == "hidden":
+        clauses.append("is_rejected_platform_duplicate = 0")
+    else:
+        clauses.append("status <> 'applied'")
+    if filters["view"] != "hidden" and not filters["show_rejected"]:
         clauses.append("is_rejected_platform_duplicate = 0")
     if filters["q"]:
         search_parts = [f"{field} LIKE ? COLLATE NOCASE" for field in SEARCH_FIELDS]

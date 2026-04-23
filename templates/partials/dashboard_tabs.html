@@ -1,0 +1,20 @@
+<section class="dashboard-tabs">
+  <a
+    class="dashboard-tab {% if filters.view == 'open' %}is-active{% endif %}"
+    href="{{ url_for('dashboard.index', **tab_urls.open) }}"
+  >
+    Open jobs
+  </a>
+  <a
+    class="dashboard-tab {% if filters.view == 'hidden' %}is-active{% endif %}"
+    href="{{ url_for('dashboard.index', **tab_urls.hidden) }}"
+  >
+    Hidden jobs
+  </a>
+  <a
+    class="dashboard-tab {% if filters.view == 'applied' %}is-active{% endif %}"
+    href="{{ url_for('dashboard.index', **tab_urls.applied) }}"
+  >
+    Applied
+  </a>
+</section>
