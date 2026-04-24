@@ -17,4 +17,10 @@
   >
     Applied
   </a>
+  <a
+    class="dashboard-tab {% if filters.view == 'same_company' %}is-active{% endif %}"
+    href="{{ url_for('dashboard.index', **tab_urls.same_company) }}"
+  >
+    Same companies
+  </a>
 </section>

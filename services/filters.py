@@ -89,8 +89,23 @@ def build_where(filters):
         clauses.append("status = 'applied'")
     elif filters["view"] == "hidden":
         clauses.append("status = 'hidden'")
+    elif filters["view"] == "same_company":
+        clauses.append("status NOT IN ('applied', 'hidden')")
+        clauses.append(
+            "employer_name IN (SELECT DISTINCT employer_name FROM jobs WHERE status = 'applied')"
+        )
     else:
         clauses.append("status NOT IN ('applied', 'hidden')")
+        clauses.append(
+            """
+            employer_name NOT IN (
+                SELECT DISTINCT employer_name
+                FROM jobs
+                WHERE status = 'applied'
+                  AND trim(COALESCE(employer_name, '')) <> ''
+            )
+            """
+        )
     if filters["view"] != "hidden" and not filters["show_rejected"]:
         clauses.append("is_rejected_platform_duplicate = 0")
     if filters["q"]:
