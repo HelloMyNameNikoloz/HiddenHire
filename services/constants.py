@@ -70,7 +70,7 @@ DEFAULTS = {
     "hidden_score": 0,
 }
 
-STATUS_OPTIONS = ["new", "interested", "applied", "interview", "offer", "rejected", "ignored"]
+STATUS_OPTIONS = ["new", "interested", "applied", "interview", "offer", "rejected", "ignored", "hidden"]
 STATUS_LABELS = {
     "new": "New",
     "interested": "Interested",
@@ -79,6 +79,7 @@ STATUS_LABELS = {
     "offer": "Offer",
     "rejected": "Rejected",
     "ignored": "Ignored",
+    "hidden": "Hidden",
 }
 REMOTE_TYPES = ["remote", "hybrid", "onsite", "unknown"]
 EMPLOYMENT_TYPES = ["part_time", "full_time", "working_student", "minijob", "internship", "freelance", "unknown"]

@@ -42,8 +42,8 @@ def build_tab_urls(args):
     base = args.to_dict(flat=True)
     base.pop("partial", None)
     applied_args = {key: value for key, value in base.items() if key != "only_not_applied"}
+    hidden_args = {key: value for key, value in base.items() if key != "only_not_applied"}
     open_args = dict(base)
-    hidden_args = dict(base)
     open_args["view"] = "open"
     hidden_args["view"] = "hidden"
     applied_args["view"] = "applied"

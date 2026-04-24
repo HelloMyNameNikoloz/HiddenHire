@@ -61,6 +61,7 @@ function label(value) {
     offer: "Offer",
     rejected: "Rejected",
     ignored: "Ignored",
+    hidden: "Hidden",
     new: "New",
   };
   return labels[value] || value;

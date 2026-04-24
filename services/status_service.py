@@ -35,6 +35,10 @@ def update_notes(job_id, notes):
     return get_job(job_id)
 
 
+def delete_job(job_id):
+    execute("DELETE FROM jobs WHERE id = ?", (job_id,))
+
+
 def empty_to_none(value):
     return value or None
 

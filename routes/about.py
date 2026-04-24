@@ -32,6 +32,7 @@ STATUS_TAGS = [
     {"label": "Offer", "classes": "status-badge status-offer", "meaning": "Employer has made an offer."},
     {"label": "Rejected", "classes": "status-badge status-rejected", "meaning": "Role is closed off for you."},
     {"label": "Ignored", "classes": "status-badge status-ignored", "meaning": "Kept in the database but not pursued."},
+    {"label": "Hidden", "classes": "status-badge status-hidden", "meaning": "Hidden from active work views without deleting it."},
 ]
 
 

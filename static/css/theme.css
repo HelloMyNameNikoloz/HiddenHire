@@ -1,20 +1,20 @@
 :root {
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --card: #ffffff;
-  --elevated: #fffdf8;
-  --text: #1f2933;
-  --text-secondary: #6b7280;
-  --text-muted: #87909d;
-  --border: #e5e1da;
-  --accent: #5b7cfa;
-  --accent-hover: #6e8cff;
-  --success: #2f9e6d;
-  --warning: #d97706;
+  --bg: #ffe8be;
+  --surface: color-mix(in srgb, #ffe8be 82%, #ffffff);
+  --card: color-mix(in srgb, #ffe8be 72%, #ffffff);
+  --elevated: #f7dd7d;
+  --text: #243044;
+  --text-secondary: color-mix(in srgb, #406aaf 62%, #243044);
+  --text-muted: color-mix(in srgb, #406aaf 42%, #ffe8be);
+  --border: color-mix(in srgb, #427ab5 34%, #ffe8be);
+  --accent: #406aaf;
+  --accent-hover: #427ab5;
+  --success: #427ab5;
+  --warning: #7d6200;
   --danger: #dc2626;
-  --red-flag-bg: #fef2f2;
-  --hidden-bg: #f0fdf4;
-  --shadow: 0 10px 30px rgba(31, 41, 51, 0.08);
+  --red-flag-bg: color-mix(in srgb, #f7dd7d 42%, #ffe8be);
+  --hidden-bg: color-mix(in srgb, #427ab5 13%, #ffffff);
+  --shadow: 0 10px 30px rgba(64, 106, 175, 0.1);
   --radius-lg: 24px;
   --radius-md: 18px;
   --radius-sm: 12px;
@@ -24,25 +24,25 @@
   --space-4: 1.5rem;
   --space-5: 2rem;
   --container: 1180px;
-  --focus-ring: 0 0 0 3px rgba(91, 124, 250, 0.2);
+  --focus-ring: 0 0 0 3px rgba(64, 106, 175, 0.22);
 }
 
 [data-theme="dark"] {
-  --bg: #111318;
-  --surface: #171a21;
-  --card: #1e222b;
-  --elevated: #252a35;
-  --text: #f4f6f8;
-  --text-secondary: #a8b0bd;
-  --text-muted: #7c8492;
-  --border: #303642;
-  --accent: #8ea2ff;
-  --accent-hover: #a3b2ff;
-  --success: #5ccb93;
-  --warning: #f0b45b;
-  --danger: #f87171;
-  --red-flag-bg: rgba(248, 113, 113, 0.12);
-  --hidden-bg: rgba(92, 203, 147, 0.1);
+  --bg: #1b211a;
+  --surface: color-mix(in srgb, #1b211a 88%, #628141);
+  --card: color-mix(in srgb, #1b211a 82%, #628141);
+  --elevated: color-mix(in srgb, #1b211a 72%, #628141);
+  --text: #ebd5ab;
+  --text-secondary: color-mix(in srgb, #ebd5ab 76%, #8bae66);
+  --text-muted: color-mix(in srgb, #ebd5ab 54%, #1b211a);
+  --border: color-mix(in srgb, #628141 48%, #1b211a);
+  --accent: #8bae66;
+  --accent-hover: #ebd5ab;
+  --success: #8bae66;
+  --warning: #ebd5ab;
+  --danger: color-mix(in srgb, #ebd5ab 58%, #628141);
+  --red-flag-bg: color-mix(in srgb, #628141 20%, #1b211a);
+  --hidden-bg: color-mix(in srgb, #8bae66 18%, #1b211a);
   --shadow: none;
-  --focus-ring: 0 0 0 3px rgba(142, 162, 255, 0.26);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, #8bae66 34%, transparent);
 }

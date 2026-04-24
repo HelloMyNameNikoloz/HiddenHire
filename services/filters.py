@@ -88,9 +88,9 @@ def build_where(filters):
     if filters["view"] == "applied":
         clauses.append("status = 'applied'")
     elif filters["view"] == "hidden":
-        clauses.append("is_rejected_platform_duplicate = 0")
+        clauses.append("status = 'hidden'")
     else:
-        clauses.append("status <> 'applied'")
+        clauses.append("status NOT IN ('applied', 'hidden')")
     if filters["view"] != "hidden" and not filters["show_rejected"]:
         clauses.append("is_rejected_platform_duplicate = 0")
     if filters["q"]:

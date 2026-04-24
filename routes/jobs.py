@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, jsonify, redirect, render_template, request, url_for
 
 from services.recommendation_service import recommendation_badge
-from services.status_service import build_application_template, get_job, update_notes, update_status
+from services.status_service import build_application_template, delete_job, get_job, update_notes, update_status
 
 
 bp = Blueprint("jobs", __name__, url_prefix="/jobs")
@@ -43,6 +43,16 @@ def notes(job_id):
     if job is None:
         return status_response(False, "Job not found.", 404)
     return status_response(True, "Notes saved.", 200, job)
+
+
+@bp.post("/<int:job_id>/delete")
+def delete(job_id):
+    job = get_job(job_id)
+    if job is None:
+        return ("Job not found", 404)
+    delete_job(job_id)
+    flash("Job removed.", "success")
+    return redirect(url_for("dashboard.index"))
 
 
 def status_response(success, message, code, job=None):

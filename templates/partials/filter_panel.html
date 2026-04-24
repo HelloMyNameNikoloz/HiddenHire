@@ -8,14 +8,29 @@
     <div class="quick-filter-row">
       <label class="checkbox-row compact-check"><input type="checkbox" name="only_remote_hybrid" value="1" {% if filters.only_remote_hybrid %}checked{% endif %}><span>Remote or hybrid</span></label>
       <label class="checkbox-row compact-check"><input type="checkbox" name="only_part_time_student" value="1" {% if filters.only_part_time_student %}checked{% endif %}><span>Part-time or student</span></label>
-      {% if filters.view != 'applied' %}
+      {% if filters.view == 'open' %}
         <label class="checkbox-row compact-check"><input type="checkbox" name="only_not_applied" value="1" {% if filters.only_not_applied %}checked{% endif %}><span>Not applied</span></label>
       {% endif %}
       <label class="checkbox-row compact-check"><input type="checkbox" name="show_rejected" value="1" {% if filters.show_rejected %}checked{% endif %}><span>Show rejected</span></label>
     </div>
-    <div class="filter-group two-up">
-      <div><label>Sort by</label><select name="sort">{% for key in sort_options.keys() %}<option value="{{ key }}" {% if filters.sort == key %}selected{% endif %}>{{ key.replace('_', ' ') }}</option>{% endfor %}</select></div>
-      <div><label>Minimum hidden score</label><input type="number" min="0" max="100" name="min_hidden_score" value="{{ filters.min_hidden_score }}" placeholder="60"></div>
+    <div class="filter-group">
+      <label>Minimum hidden score</label>
+      <div class="score-preset-row">
+        {% for value, label in [('', 'Any'), ('40', '40+'), ('60', '60+'), ('80', '80+')] %}
+          <label class="score-preset {% if filters.min_hidden_score == value %}is-selected{% endif %}">
+            <input type="radio" name="min_hidden_score" value="{{ value }}" {% if filters.min_hidden_score == value %}checked{% endif %}>
+            <span>{{ label }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="filter-group">
+      <label>Sort by</label>
+      <select name="sort">
+        {% for key in sort_options.keys() %}
+          <option value="{{ key }}" {% if filters.sort == key %}selected{% endif %}>{{ key.replace('_', ' ') }}</option>
+        {% endfor %}
+      </select>
     </div>
     <details class="advanced-filters" {% if active_filter_count > 2 or filters.employer_name or filters.job_title or filters.location or filters.tech_stack %}open{% endif %}>
       <summary>Advanced filters</summary>

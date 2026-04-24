@@ -39,6 +39,7 @@
 }
 
 .badge-muted,
+.status-hidden,
 .status-ignored,
 .status-rejected {
   background: var(--elevated);

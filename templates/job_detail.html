@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="status-button-grid">
-            {% for value in ["interested","applied","interview","offer","rejected","ignored"] %}
+            {% for value in ["interested","applied","interview","offer","rejected","ignored","hidden"] %}
               <button
                 class="status-action status-{{ value }} {% if job['status'] == value %}is-current{% endif %}"
                 type="submit"
@@ -100,6 +100,9 @@
             {% endfor %}
           </div>
         </form>
+        <div class="remove-job-row">
+          <button class="btn btn-danger" type="button" data-open-delete-modal>Remove job</button>
+        </div>
         <div class="helper-row">
           <span>Applied date: <strong data-applied-date>{{ format_date(job["applied_date"]) }}</strong></span>
           <span>Follow-up: <strong data-follow-up-date>{{ format_date(job["follow_up_date"]) }}</strong></span>
@@ -124,4 +127,21 @@
       </article>
     </aside>
   </section>
+  <dialog class="confirm-dialog" data-delete-modal>
+    <form method="dialog" class="confirm-dialog-card">
+      <h2>Remove this job?</h2>
+      <p>This permanently deletes the job from HiddenHire.</p>
+      <div class="confirm-dialog-actions">
+        <button class="btn btn-secondary" type="submit">Cancel</button>
+        <button
+          class="btn btn-danger"
+          type="submit"
+          form="delete-job-form"
+        >
+          Remove job
+        </button>
+      </div>
+    </form>
+  </dialog>
+  <form id="delete-job-form" method="post" action="{{ url_for('jobs.delete', job_id=job['id']) }}"></form>
 {% endblock %}
